@@ -72,6 +72,18 @@ if( -not $? )
 Write-Host - cimgui.so
 
 $client.DownloadFile(
+    "https://github.com/qaz734913414/ImGui.NET-nativebuild/releases/download/$tag/cimgui.so",
+    "$PSScriptRoot/deps/cimgui/linux-arm64/cimgui.so")
+if( -not $? )
+{
+    $msg = $Error[0].Exception.Message
+    Write-Error "Couldn't download cimgui.so. This most likely indicates the Linux native build failed."
+    exit
+}
+
+Write-Host "- cimgui.so (arm64)"
+
+$client.DownloadFile(
     "$repository/releases/download/$tag/cimgui.dylib",
     "$PSScriptRoot/deps/cimgui/osx/cimgui.dylib")
 if( -not $? )
